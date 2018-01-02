@@ -1,10 +1,11 @@
 in:
-  type: jdbc
+  type: oracle
   driver_path: /usr/lib/jdbc/ojdbc7_g-12.1.0.2.jar
-  driver_class: oracle.jdbc.driver.OracleDriver
-  url: jdbc:oracle:thin:@10.128.0.10:49161/xe
+  host: 10.128.0.10
+  port: 49161
   user: HONTO2
   password: HONTO2DF
+  database: xe
   table: M_APCRD_MEM_TMP_MCH
   select: "*"
 out:
