@@ -1,4 +1,20 @@
 in:
-{% include 'config/oracle' with "M_APCRD_MEM_TMP_MCH" %}
+  type: jdbc
+  driver_path: /usr/lib/jdbc/ojdbc7_g-12.1.0.2.jar
+  driver_class: oracle.jdbc.driver.OracleDriver
+  url: jdbc:oracle:thin:@10.128.0.10:49161/xe
+  user: HONTO2
+  password: HONTO2DF
+  table: M_APCRD_MEM_TMP_MCH
+  select: "*"
 out:
-{% include 'config/csv' with "Snd_HB_M_APCRD_MEM_TMP_MCH" %}
+  type: file
+  path_prefix: Snd_HB_M_APCRD_MEM_TMP_MCH
+  file_ext: csv
+  formater:
+      type: csv
+      delimiter: "|"
+      newline: LF
+      charset: UTF-8
+      quote: NONE
+      header_line: false
