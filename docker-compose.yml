@@ -1,0 +1,12 @@
+version: '2'
+services:
+  embulk:
+    image: lanntxyz/oracle-dwh-embulk
+    environment:
+      #PLUGINS: "embulk-input-jdbc embulk-output-file liquid"
+      CONFIG: /etc/embulk/_config.yml.liquid
+      LOG_LEVEL: info
+      LOG_PATH: /opt/scripts/log/ETC_BAT_EMBULK/Snd_HB_M_APCRD_MEM_TMP_MCH_123.log
+    volumes:
+      - ./conf:/etc/embulk
+

@@ -1,0 +1,14 @@
+#
+# Oracle接続情報
+#
+type: jdbc
+driver_path: /usr/lib/jdbc/ojdbc7_g-12.1.0.2.jar
+driver_class: oracle.jdbc.driver.OracleDriver
+url: jdbc:oracle:thin:@10.128.0.10:49161/xe
+user: HONTO2
+password: HONTO2DF
+table: {{ORACLE_TABLE_NAME}}
+select: "*"
+{% if ORACLE_WHERE != "" %}
+where: "{{ORACLE_WHERE}}"
+{% endif %}
