@@ -105,7 +105,7 @@ while read line; do
     fi
 
     # テーブル名とファイル名を取得
-    CSV_DATA_ROW=$($line)
+    CSV_DATA_ROW="($line)"
 
     # 処理対象のテーブル名を設定
     TABLE_NAME=${CSV_DATA_ROW[0]}
