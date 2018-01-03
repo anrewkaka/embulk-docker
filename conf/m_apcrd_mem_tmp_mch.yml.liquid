@@ -7,8 +7,17 @@ in:
   user: {{userid}}
   password: {{password}}
   table: M_APCRD_MEM_TMP_MCH
-  select: "*"
-  where: "TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') >= CONCAT(TO_CHAR(SYSDATE-10, 'YYYY-MM-DD'), ' 00:00:00')"
+  select: APCRD_NO
+          ,MEM_ID
+          ,MCH_FLG
+          ,REG_DTTM
+          ,REG_USR_ID
+          ,UPD_DTTM
+          ,UPD_USR_ID
+          ,DAT_UPD_CLS
+          ,UPD_TMS
+          ,LGC_DEL_FLG
+  where: {{where}}
 out:
   type: file
   path_prefix: {{out_path_prefix}}/Snd_HB_M_APCRD_MEM_TMP_MCH_
