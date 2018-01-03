@@ -27,5 +27,5 @@ out:
     default_timezone: "Asia/Tokyo"
   filters:
   - type: rename
-    match: "[\||LF|CR]"
-    replace: ""
+    match: "([0-9]+)"
+    replace: "X$1X"
