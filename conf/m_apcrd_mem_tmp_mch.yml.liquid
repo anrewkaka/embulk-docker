@@ -20,7 +20,7 @@ in:
   where: {{where}}
 out:
   type: file
-  path_prefix: {{out_path_prefix}}/Snd_HB_M_APCRD_MEM_TMP_MCH_{{ "now" | date: "%Y%m%d%H%M%S" }}
+  path_prefix: {{out_path_prefix}}/Snd_HB_M_APCRD_MEM_TMP_MCH_{{current_timestamp}}
   sequence_format: "."
   file_ext: csv
   formatter:
