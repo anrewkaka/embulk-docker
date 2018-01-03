@@ -7,6 +7,8 @@ in:
   password: HONTO2DF
   table: M_APCRD_MEM_TMP_MCH
   select: "*"
+  default_column_options:
+    DATE: {type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S", timezone: "+0900"}
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_
