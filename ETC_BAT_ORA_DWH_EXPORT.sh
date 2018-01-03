@@ -94,7 +94,7 @@ if [ ${LIST_CHECK} -eq 0 ]; then
     exit -1
 fi
 
-## ${LOCAL_BASEDIR}/work/rawdatalist_${LIST_NAME_SUFFIX}.csv をブロック末尾でリダイレクトで読込
+## ${LOCAL_BASEDIR}/work/tablelist_${TARGET_DATE}.csv をブロック末尾でリダイレクトで読込
 while read line; do
     # リストの空行を飛ばす
     result=`echo ${line} | tr -d "\r" | tr -d "\n"`
@@ -104,6 +104,7 @@ while read line; do
         continue
     fi
 
+    # テーブル名とファイル名を取得
     CSV_DATA_ROW=($line)
 
     # 処理対象のテーブル名を設定
@@ -119,5 +120,17 @@ while read line; do
         echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
         exit -1
     fi
+
+    # Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
+    cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
+    RETURN_CD=${?}
+    if [ ${RETURN_CD} != 0 ]; then
+        echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
+        exit -1
+    fi
+
+    # 抽出データ取得期間の条件を設定
+    sed -i -e "s/<TARGET_DATE>/${TARGET_DATE}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+    sed -i -e "s/<CURRENT_TIMESTAMP>/${CURRENT_TIMESTAMP}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 
 done < ${LOCAL_BASEDIR}/work/tablelist_${TARGET_DATE}.csv
