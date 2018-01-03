@@ -1,0 +1,31 @@
+{% include 'config' %}
+in:
+  type: jdbc
+  driver_path: {{driver_path}}
+  driver_class: {{driver_class}}
+  url: {{url}}
+  user: {{userid}}
+  password: {{password}}
+  table: M_APCRD_MEM_TMP_MCH
+  select: "*"
+  default_timezone: "Asia/Tokyo"
+  column_options:
+    REG_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
+    UPD_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
+    UPD_TMS: {type: long}
+out:
+  type: file
+  path_prefix: {{out_path_prefix}}/Snd_HB_M_APCRD_MEM_TMP_MCH_
+  file_ext: csv
+  formatter:
+    type: csv
+    delimiter: "|"
+    newline: LF
+    charset: UTF-8
+    quote_policy: NONE
+    header_line: false
+      default_timezone: "Asia/Tokyo"
+    column_options:
+      REG_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
+      UPD_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
+      UPD_TMS: {type: long}
