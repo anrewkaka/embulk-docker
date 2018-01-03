@@ -61,7 +61,7 @@ fi
 # リストファイルチェック（関数）
 # リストファイルに有効行が存在するかどうかチェックを行う
 #
-function check_table_list_file {
+check_table_list_file() {
     ##
     ## ${LOCAL_BASEDIR}/work/tablelist_*.csv をブロック末尾でリダイレクトで読込
     ##
