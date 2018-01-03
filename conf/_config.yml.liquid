@@ -7,10 +7,10 @@ in:
   password: HONTO2DF
   table: M_APCRD_MEM_TMP_MCH
   select: "*"
-  default_timezone: "Asia/Tyokyo"
+  default_timezone: "Asia/Tokyo"
   column_options:
-    REG_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tyokyo"}
-    UPD_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tyokyo"}
+    REG_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
+    UPD_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
     UPD_TMS: {type: long}
 out:
   type: file
@@ -23,4 +23,4 @@ out:
     charset: UTF-8
     quote_policy: NONE
     header_line: false
-    default_timezone: "Asia/Tyokyo"
+    default_timezone: "Asia/Tokyo"
