@@ -15,7 +15,7 @@ in:
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_
-  file_ext: zip
+  file_ext: csv.zip
   formatter:
     type: csv
     delimiter: "|"
@@ -25,6 +25,5 @@ out:
     header_line: false
     default_timezone: "Asia/Tokyo"
   encoders:
-  - type: encrypted_zip
-    password: empty
-    filename: "Snd_HB_M_APCRD_MEM_TMP_MCH_%03d.%03d.csv"
+  - type: gzip
+    level: 6
