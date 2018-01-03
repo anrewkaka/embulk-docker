@@ -6,7 +6,8 @@ services:
       PLUGINS: "embulk-input-oracle"
       CONFIG: /etc/embulk/_config.yml.liquid
       LOG_LEVEL: info
-      #LOG_PATH: /opt/scripts/log/ETC_BAT_EMBULK/Snd_HB_M_APCRD_MEM_TMP_MCH_123.log
+      LOG_FILE_NAME: Snd_HB_M_APCRD_MEM_TMP_MCH.log
+      LOG_PATH: /opt/scripts/log
     volumes:
       - ./conf:/etc/embulk
       - ./log:/opt/scripts/log
