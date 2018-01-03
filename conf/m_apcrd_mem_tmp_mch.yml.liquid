@@ -7,12 +7,17 @@ in:
   user: {{userid}}
   password: {{password}}
   table: M_APCRD_MEM_TMP_MCH
-  select: "*"
-  default_timezone: "Asia/Tokyo"
-  column_options:
-    REG_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
-    UPD_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
-    UPD_TMS: {type: long}
+  select: APCRD_NO
+          ,MEM_ID
+          ,MCH_FLG
+          ,REG_DTTM
+          ,REG_USR_ID
+          ,UPD_DTTM
+          ,UPD_USR_ID
+          ,DAT_UPD_CLS
+          ,UPD_TMS
+          ,LGC_DEL_FLG
+  where: {{where}}
 out:
   type: file
   path_prefix: {{out_path_prefix}}/Snd_HB_M_APCRD_MEM_TMP_MCH_
