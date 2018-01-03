@@ -14,7 +14,7 @@
 {% assign password = 'HONTO2DF' %}
 
 # Data Extraction Condition
-{% assign where = "TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') >= CONCAT(TO_CHAR(<TARGET_TIMESTAMP>, 'YYYY-MM-DD'), ' 00:00:00') AND TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') <= CONCAT(TO_CHAR(<TARGET_TIMESTAMP>, 'YYYY-MM-DD'), ' 23:59:59')" %}
+{% assign where = "TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') >= '<TARGET_DATE> 00:00:00' AND TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') <= '<TARGET_DATE> 23:59:59'" %}
 
 # Data File Path
 {% assign out_path_prefix = "/opt/scripts/data" %}
