@@ -1,16 +1,13 @@
 in:
-  type: oracle
+  type: jdbc
   driver_path: /usr/lib/jdbc/ojdbc7_g-12.1.0.2.jar
   driver_class: oracle.jdbc.driver.OracleDriver
-  host: 10.128.0.10
-  port: 49161
-  database: xe
+  url: jdbc:oracle:thin:@10.128.0.10:49161/xe
   user: HONTO2
   password: HONTO2DF
   table: M_APCRD_MEM_TMP_MCH
-  select: "MEM_ID"
-  connection_timneout: 60
-  socket_timeout: 180
+  select: "MEM_ID, REG_USR_ID"
+  fetch_rows: 2
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_
@@ -22,3 +19,6 @@ out:
       charset: UTF-8
       quote_policy: NONE
       header_line: false
+  encoders:
+    - type: gzip
+      level: 6
