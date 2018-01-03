@@ -25,3 +25,7 @@ out:
     quote_policy: NONE
     header_line: false
     default_timezone: "Asia/Tokyo"
+  filters:
+  - type: rename
+    match: "[\||LF|CR]"
+    replace: ""
