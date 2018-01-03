@@ -8,10 +8,10 @@ in:
   password: {{password}}
   table: M_APCRD_MEM_TMP_MCH
   select: "*"
-  where: "1=1"
+  where: "TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') >= CONCAT(TO_CHAR(SYSDATE-1, 'YYYY-MM-DD'), ' 00:00:00') AND TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') <= CONCAT(TO_CHAR(SYSDATE-1, 'YYYY-MM-DD'), ' 23:59:59')"
 out:
   type: file
-  path_prefix: {{out_path_prefix}}/Snd_HB_M_APCRD_MEM_TMP_MCH_x
+  path_prefix: {{out_path_prefix}}/Snd_HB_M_APCRD_MEM_TMP_MCH_
   file_ext: csv
   formatter:
     type: csv
