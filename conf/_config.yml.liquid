@@ -15,11 +15,14 @@ in:
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_
-  file_ext: csv
+  file_ext: zip
+  encoders:
+   - type: gzip
+    level: 1
   formatter:
-      type: csv
-      delimiter: "|"
-      newline: LF
-      charset: UTF-8
-      quote_policy: NONE
-      header_line: false
+    type: csv
+    delimiter: "|"
+    newline: LF
+    charset: UTF-8
+    quote_policy: NONE
+    header_line: false
