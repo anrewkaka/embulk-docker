@@ -4,7 +4,7 @@ services:
     image: lanntxyz/oracle-dwh-embulk:1.0.0
     environment:
       PLUGINS: "embulk-input-jdbc liquid"
-      CONFIG: /etc/embulk/_config.yml.liquid
+      CONFIG: /etc/embulk/m_apcrd_mem_tmp_mch.yml.liquid
       LOG_LEVEL: info
       LOG_FILE_NAME: Snd_HB_M_APCRD_MEM_TMP_MCH.log
       LOG_PATH: /opt/scripts/log/
