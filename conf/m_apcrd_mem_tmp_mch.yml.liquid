@@ -7,16 +7,7 @@ in:
   user: {{userid}}
   password: {{password}}
   table: M_APCRD_MEM_TMP_MCH
-  select: APCRD_NO
-          ,MEM_ID
-          ,MCH_FLG
-          ,REG_DTTM
-          ,REG_USR_ID
-          ,UPD_DTTM
-          ,UPD_USR_ID
-          ,DAT_UPD_CLS
-          ,UPD_TMS
-          ,LGC_DEL_FLG
+  select: "*"
   where: {{where}}
 out:
   type: file
