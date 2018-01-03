@@ -8,7 +8,9 @@ in:
   table: M_APCRD_MEM_TMP_MCH
   select: "*"
   default_column_options:
-    DATE: {type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S", timezone: "+0900"}
+    DATE: {value_type: timestamp, type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S", timezone: "+0900"}
+  column_options:
+    UPD_TMS: {value_type: double, type: string}
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_
