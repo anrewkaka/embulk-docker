@@ -8,4 +8,4 @@ VOLUME /etc/embulk
 RUN curl --create-dirs -o /usr/lib/jdbc/ojdbc7_g-12.1.0.2.jar -L "https://storage.googleapis.com/honto-dev-server-resources/lib/ojdbc7_g-12.1.0.2.jar"
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-CMD /entrypoint.sh "embulk-input-oracle embulk-output-file liquid"
+CMD /entrypoint.sh "embulk-input-jdbc embulk-input-oracle embulk-output-file liquid"
