@@ -1,31 +1,20 @@
-in:
-  type: jdbc
-  driver_path: /usr/lib/jdbc/ojdbc7_g-12.1.0.2.jar
-  driver_class: oracle.jdbc.driver.OracleDriver
-  url: jdbc:oracle:thin:@10.128.0.10:49161/xe
-  user: HONTO2
-  password: HONTO2DF
-  table: M_APCRD_MEM_TMP_MCH
-  select: "*"
-  default_timezone: "Asia/Tokyo"
-  column_options:
-    REG_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
-    UPD_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S.%6N %z", timezone: "Asia/Tokyo"}
-    UPD_TMS: {type: long}
-out:
-  type: file
-  path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_{{ "now" | date: "%Y%m%d" }}.
-  sequence_format: ""
-  file_ext: csv
-  formatter:
-    type: csv
-    delimiter: "|"
-    newline: LF
-    charset: UTF-8
-    quote_policy: NONE
-    header_line: false
-    default_timezone: "Asia/Tokyo"
-  filters:
-  - type: rename
-    match: "([0-9]+)"
-    replace: "X$1X"
+# Oracle JDBCDriver Path
+{% assign driver_path = '/opt/scripts/lib/ojdbc7.jar' %}
+
+# Oracle JDBCDriver Class
+{% assign driver_class = 'oracle.jdbc.driver.OracleDriver' %}
+
+# OracleDB URL
+{% assign url = 'jdbc:oracle:thin:@10.128.0.10:49161/xe' %}
+
+# UserId
+{% assign userid = 'HONTO2' %}
+
+# Password
+{% assign password = 'HONTO2DF' %}
+
+# Data Extraction Condition
+{% assign where = "TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') >= CONCAT(TO_CHAR(SYSDATE-1, 'YYYY-MM-DD'), ' 00:00:00') AND TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') <= CONCAT(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), ' 23:59:59')" %}
+
+# Data File Path
+{% assign out_path_prefix = "/opt/scripts/data" %}
