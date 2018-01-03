@@ -8,9 +8,9 @@ in:
   table: M_APCRD_MEM_TMP_MCH
   select: "*"
   default_timezone: "+0900"
-  default_column_options:
-    DATE: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S", timezone: "+0900"}
   column_options:
+    REG_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S", timezone: "+0900"}
+    UPD_DTTM: { type: string, timestamp_format: "%Y-%m-%dT%H:%M:%S", timezone: "+0900"}
     UPD_TMS: {type: long}
 out:
   type: file
