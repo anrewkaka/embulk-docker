@@ -17,7 +17,7 @@
 {% assign where = "TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') >= '<TARGET_DATE> 00:00:00' AND TO_CHAR(UPD_DTTM, 'YYYY-MM-DD HH24:MI:SS') <= '<TARGET_DATE> 23:59:59'" %}
 
 # Proccess timestamp
-{% assign current_timestamp = <CURRENT_TIMESTAMP> %}
+{% assign current_timestamp = '<CURRENT_TIMESTAMP>' %}
 
 # Output file name
-{% assign output_file_name = <FILE_NAME> %}
+{% assign output_file_name = '<FILE_NAME>' %}
