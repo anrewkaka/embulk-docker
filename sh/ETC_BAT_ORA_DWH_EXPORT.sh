@@ -105,3 +105,19 @@ fi
 # 抽出データ取得期間の条件を設定
 sed -i -e "s/<TARGET_DATE>/${EXPORT_TARGET_DATE}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 sed -i -e "s/<CURRENT_TIMESTAMP>/${CURRENT_TIMESTAMP}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+
+# Docker用ファイル(docker-compose.yml)をコピー
+cp ${LOCAL_BASEDIR}/yml/docker-compose.yml ./
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    echo "`date '+%T'` Docker用ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
+    exit -1
+fi
+
+LOWER_CASE_TABLE_NAME=`echo ${TABLE_NAME} | tr [:upper:] [:lower:]`
+# Docker用ファイルの共通項目を設定
+sed -i -e "s/<DOCKER_IMAGE>/${DOCKER_IMAGE}/" ./docker-compose.yml
+sed -i -e "s/<LOWERCASE_TABLE_NAME>/${LOWER_CASE_TABLE_NAME}/" ./docker-compose.yml
+sed -i -e "s/<FILE_SUBFIX>/${CURRENT_TIMESTAMP}/" ./docker-compose.yml
+sed -i -e "s/<LOCAL_BASEDIR>/${LOCAL_BASEDIR}/" ./docker-compose.yml
+sed -i -e "s/<OUTPUT_DIR>/${OUTPUT_DIR}/" ./docker-compose.yml
