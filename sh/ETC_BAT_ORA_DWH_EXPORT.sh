@@ -110,7 +110,7 @@ fi
 sed -i -e "s|<TARGET_DATE>|${EXPORT_TARGET_DATE}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 sed -i -e "s|<CURRENT_TIMESTAMP>|${CURRENT_TIMESTAMP}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 sed -i -e "s|<FILE_NAME>|${FILE_NAME}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-echo ${FILE_NAME}
+
 # Docker用ファイル(docker-compose.yml)をコピー
 cp ${LOCAL_BASEDIR}/yml/docker-compose.yml ./
 RETURN_CD=${?}
@@ -141,14 +141,14 @@ if [ ${RETURN_CD} != 0 ]; then
 fi
 
 # Embulk設定ファイルを削除
-rm ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-RETURN_CD=${?}
-if [ ${RETURN_CD} != 0 ]; then
-    # ログ出力
-    echo "`date '+%T'` Embulk設定ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
-    # 異常終了
-    exit 1
-fi
+#rm ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+#RETURN_CD=${?}
+#if [ ${RETURN_CD} != 0 ]; then
+#    # ログ出力
+#    echo "`date '+%T'` Embulk設定ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
+#    # 異常終了
+#    exit 1
+#fi
 
 # Docker用ファイルを削除
 rm ./docker-compose.yml
