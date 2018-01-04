@@ -18,10 +18,12 @@ in:
           ,UPD_TMS
           ,LGC_DEL_FLG
   where: {{where}}
+{% comment %}
 filters:
 - type: eval
   eval_columns:
   - UPD_USR_ID: "'X' + value + 'Y'"
+{% endcomment %}
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_{{current_timestamp}}
