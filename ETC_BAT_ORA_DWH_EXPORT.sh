@@ -84,7 +84,7 @@ if [ $(expr "$TARGET_DATE" : '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$') -eq 0 ]; then
 fi
 
 # EXPORT_TARGET_DATEの設定
-EXPORT_TARGET_DATE=date -d "${TARGET_DATE}" +%Y-%m-%d
+EXPORT_TARGET_DATE=`date -d "${TARGET_DATE}" +%Y-%m-%d`
 
 echo ${EXPORT_TARGET_DATE}
 
