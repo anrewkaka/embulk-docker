@@ -31,6 +31,8 @@ filters:
       - {name: DAT_UPD_CLS, type: string}
       - {name: UPD_TMS, type: long}
       - {name: LGC_DEL_FLG, type: string}
+    default_timestamp_format: "%Y-%m-%d %H:%M:%S"
+    default_timezone: "Asia/Tokyo"
   - type: eval
     eval_columns:
       - UPD_TMS: 5
