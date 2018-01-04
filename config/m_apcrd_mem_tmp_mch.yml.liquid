@@ -22,7 +22,7 @@ in:
 filters:
   - type: eval
     eval_columns:
-      - APCRD_NO: value; print "ba noi cha may ", value;
+      - APCRD_NO: value; print "ba noi cha may ", value, \n;
       - MEM_ID: value
       - MCH_FLG: value
       - REG_DTTM: value
@@ -32,6 +32,17 @@ filters:
       - DAT_UPD_CLS: value
       - UPD_TMS: value
       - LGC_DEL_FLG: value
+    out_columns:
+      - APCRD_NO
+      - MEM_ID
+      - MCH_FLG
+      - REG_DTTM
+      - REG_USR_ID
+      - UPD_DTTM
+      - UPD_USR_ID
+      - DAT_UPD_CLS
+      - UPD_TMS
+      - LGC_DEL_FLG
 
 out:
   type: stdout
