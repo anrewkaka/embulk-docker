@@ -16,7 +16,9 @@
 # Oracleからデータを取得し、Google Cloud Strageへデータ連携する。
 #
 # 【引数】
-#  第1引数 TARGET_DATE: 対象日(フォーマット：YYYYDDMM)
+#  第1引数 TABLE_NAME: テーブル名
+#  第2引数 FILE_NAME: ファイル名
+#  第3引数 TARGET_DATE: 対象日(フォーマット：YYYY-MM-DD)
 # 【返却値】
 #    0 : 正常終了
 #    1 : 異常終了
@@ -44,93 +46,35 @@ touch ${ORA_DWH_EXPORT_LOG}
 TARGET_DATE=$1
 if [ "x$TARGET_DATE" = "x" ]; then
     # 未指定の場合：実行日を対象日とする
-    TARGET_DATE=`date +%Y%m%d`
+    TARGET_DATE=`date +%Y-%m-%d`
 fi
 
 #
 # 引数チェック
 #
-if [ $(expr "$TARGET_DATE" : '^[0-9]\{8\}$') -eq 0 ]; then
+if [ $(expr "$TARGET_DATE" : '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$') -eq 0 ]; then
     # ログ出力
-    echo "`date '+%T'` 不正な引数：${TARGET_DATE}（正しくは「YYYYMMDD」フォーマットの日付です。）" | tee -a ${ORA_DWH_EXPORT_LOG}
+    echo "`date '+%T'` 不正な引数：${TARGET_DATE}（正しくは「YYYY-MM-DD」フォーマットの日付です。）" | tee -a ${ORA_DWH_EXPORT_LOG}
     # 異常終了
     exit 1
 fi
 
-#
-# リストファイルチェック（関数）
-# リストファイルに有効行が存在するかどうかチェックを行う
-#
-check_table_list_file() {
-    ##
-    ## ${LOCAL_BASEDIR}/work/tablelist_*.csv をブロック末尾でリダイレクトで読込
-    ##
-    while read line; do
-        # リストの空行を飛ばす
-        result=`echo ${line} | tr -d "\r" | tr -d "\n"`
-
-        # コメント行や空行を読み飛ばす
-        if [ `echo ${result} | egrep "^#" | wc -l` -gt 0 ] || [ "${result}" = "" ]; then
-            continue
-        else
-            echo "`date '+%T'` 有効な設定を確認しました。" >> ${ORA_DWH_EXPORT_LOG}
-            echo 1
-            return
-        fi
-        echo 0
-        return
-    done <  ${LOCAL_BASEDIR}/work/tablelist_${TARGET_DATE}.csv
-}
-
-# リスト区切り文字
-IFS=','
-
-# リストファイルチェック（関数呼び出し）
-LIST_CHECK=`check_table_list_file`
-
-# 空ファイルだった場合はログにメッセージを出力
-if [ ${LIST_CHECK} -eq 0 ]; then
-    echo "`date '+%T'` データ連携対象テーブルリストにデータ処理内容が記述されていません。" >> ${ORA_DWH_EXPORT_LOG}
+# Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
+cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
     exit -1
 fi
 
-## ${LOCAL_BASEDIR}/work/tablelist_${TARGET_DATE}.csv をブロック末尾でリダイレクトで読込
-while read line; do
-    # リストの空行を飛ばす
-    result=`echo ${line} | tr -d "\r" | tr -d "\n"`
+# Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
+cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
+    exit -1
+fi
 
-    # コメント行や空行を読み飛ばす
-    if [ `echo ${result} | egrep "^#" | wc -l` -gt 0 ] || [ "${result}" = "" ]; then
-        continue
-    fi
-
-    # テーブル名とファイル名を取得
-    CSV_DATA_ROW=($line)
-
-    # 処理対象のテーブル名を設定
-    TABLE_NAME=${CSV_DATA_ROW[0]}
-
-    # ファイル名を設定
-    FILE_NAME=${CSV_DATA_ROW[1]}
-
-    # Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
-    cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
-    RETURN_CD=${?}
-    if [ ${RETURN_CD} != 0 ]; then
-        echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
-        exit -1
-    fi
-
-    # Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
-    cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
-    RETURN_CD=${?}
-    if [ ${RETURN_CD} != 0 ]; then
-        echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
-        exit -1
-    fi
-
-    # 抽出データ取得期間の条件を設定
-    sed -i -e "s/<TARGET_DATE>/${TARGET_DATE}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-    sed -i -e "s/<CURRENT_TIMESTAMP>/${CURRENT_TIMESTAMP}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-
-done < ${LOCAL_BASEDIR}/work/tablelist_${TARGET_DATE}.csv
+# 抽出データ取得期間の条件を設定
+sed -i -e "s/<TARGET_DATE>/${TARGET_DATE}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+sed -i -e "s/<CURRENT_TIMESTAMP>/${CURRENT_TIMESTAMP}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
