@@ -130,11 +130,35 @@ sed -i -e "s|<FILE_SUBFIX>|${CURRENT_TIMESTAMP}|" ./docker-compose.yml
 sed -i -e "s|<LOCAL_BASEDIR>|${LOCAL_BASEDIR}|" ./docker-compose.yml
 sed -i -e "s|<OUTPUT_DIR>|${OUTPUT_DIR}|" ./docker-compose.yml
 
+# Embulkを実行し、Oracleからデータを抽出
+docker-compose up
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    # ログ出力
+    echo "`date '+%T'` Docker実行に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    # 異常終了
+    exit 1
+fi
+
 # Embulk設定ファイルを削除
 rm ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    # ログ出力
+    echo "`date '+%T'` Embulk設定ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    # 異常終了
+    exit 1
+fi
 
 # Docker用ファイルを削除
 rm ./docker-compose.yml
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    # ログ出力
+    echo "`date '+%T'` Docker用ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    # 異常終了
+    exit 1
+fi
 
 # 正常終了
 exit 0
