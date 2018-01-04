@@ -18,6 +18,10 @@ in:
           ,UPD_TMS
           ,LGC_DEL_FLG
   where: {{where}}
+filters:
+- type: eval
+  eval_columns:
+  - UPD_USR_ID: "'X' + value + 'Y'"
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_{{current_timestamp}}
@@ -34,7 +38,3 @@ out:
     column_options:
       REG_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
       UPD_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
-filters:
-  - type: eval
-    eval_columns:
-      - UPD_USR_ID: "'Eval is Evil! ' + value"
