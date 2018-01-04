@@ -1,7 +1,7 @@
 version: '2'
 services:
   embulk:
-    image: lanntxyz/oracle-dwh-embulk:1.0.0
+    image: {{DOCKER_IMAGE}}
     environment:
       PLUGINS: "embulk-input-jdbc liquid"
       CONFIG: /etc/embulk/${LOWER_CASE_TABLE_NAME}.yml.liquid
@@ -9,6 +9,6 @@ services:
       LOG_FILE_NAME: ETC_ORACLE_DWH_EXPORT_${FILE_SUBFIX}.log
       LOG_PATH: /opt/scripts/log/
     volumes:
-      - ./conf:/etc/embulk
-      - ./log/ETC_BAT_EMBULK:/opt/scripts/log
-      - ./work:/opt/scripts/data
+      - {{LOCAL_BASEDIR}}/log:/opt/scripts/log
+      - {{LOCAL_BASEDIR}}/yml/input:/etc/embulk
+      - {{LOCAL_BASEDIR}}/work:/opt/scripts/data
