@@ -18,12 +18,19 @@ in:
           ,UPD_TMS
           ,LGC_DEL_FLG
   where: {{where}}
-{% comment %}
 filters:
 - type: eval
   eval_columns:
-  - UPD_USR_ID: "'X' + value + 'Y'"
-{% endcomment %}
+  - APCRD_NO:
+  - MEM_ID:
+  - MCH_FLG:
+  - REG_DTTM:
+  - REG_USR_ID:
+  - UPD_DTTM:
+  - UPD_USR_ID:
+  - DAT_UPD_CLS:
+  - UPD_TMS:
+  - LGC_DEL_FLG:
 out:
   type: file
   path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_{{current_timestamp}}
