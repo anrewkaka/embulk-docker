@@ -21,7 +21,7 @@ in:
 filters:
   - type: eval
     eval_columns:
-      - UPD_TMS: value + 1
+      - upd_tms: 5
 out:
   type: file
   path_prefix: /opt/scripts/data/{{output_file_name}}_{{current_timestamp}}
