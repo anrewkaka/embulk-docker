@@ -20,6 +20,9 @@ in:
   where: {{where}}
 
 filters:
+  - type: column
+    default_timestamp_format: "%Y-%m-%d %H:%M:%S"
+    default_timezone: "Asia/Tokyo"
   - type: eval
     eval_columns:
       - REG_DTTM: value
@@ -42,7 +45,3 @@ out:
     charset: UTF-8
     quote_policy: NONE
     header_line: false
-    default_timezone: "Asia/Tokyo"
-    column_options:
-      REG_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
-      UPD_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
