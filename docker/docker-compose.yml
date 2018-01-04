@@ -6,7 +6,7 @@ services:
       PLUGINS: "embulk-input-jdbc embulk-filter-eval liquid"
       CONFIG: /etc/embulk/m_apcrd_mem_tmp_mch.yml.liquid
       LOG_LEVEL: info
-      LOG_FILE_NAME: EMBULK_ORACLE_DWH_EXPORT_<CURRENT_TIMESTAMP>.log
+      LOG_FILE_NAME: EMBULK_ORACLE_DWH_EXPORT_<FILE_SUBFIX>.log
       LOG_PATH: /opt/scripts/log/
     volumes:
       - <LOCAL_BASEDIR>/log:/opt/scripts/log
