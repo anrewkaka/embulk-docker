@@ -18,6 +18,17 @@ in:
           ,UPD_TMS
           ,LGC_DEL_FLG
   where: {{where}}
+  column_options:
+    - APCRD_NO: {type: string}
+    - MEM_ID: {type: string}
+    - MCH_FLG: {type: string}
+    - REG_DTTM: {type: string}
+    - REG_USR_ID: {type: string}
+    - UPD_DTTM: {type: string}
+    - UPD_USR_ID: {type: string}
+    - DAT_UPD_CLS: {type: string}
+    - UPD_TMS: {type: string}
+    - LGC_DEL_FLG: {type: string}
 
 {% comment %}
 filters:
@@ -44,7 +55,6 @@ filters:
       - DAT_UPD_CLS
       - UPD_TMS
       - LGC_DEL_FLG
-{% endcomment %}
 
 filters:
   - type: column
@@ -59,6 +69,7 @@ filters:
       - {name: DAT_UPD_CLS, src: DAT_UPD_CLS, type: string}
       - {name: UPD_TMS, src: UPD_TMS, type: string}
       - {name: LGC_DEL_FLG, src: LGC_DEL_FLG, type: string}
+{% endcomment %}
 
 out:
   type: stdout
