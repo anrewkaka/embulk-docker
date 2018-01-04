@@ -115,6 +115,8 @@ if [ ${RETURN_CD} != 0 ]; then
 fi
 
 LOWER_CASE_TABLE_NAME=`echo ${TABLE_NAME} | tr [:upper:] [:lower:]`
+echo ${LOWER_CASE_TABLE_NAME}
+
 # Docker用ファイルの共通項目を設定
 sed -i -e "s/<DOCKER_IMAGE>/${DOCKER_IMAGE}/" ./docker-compose.yml
 sed -i -e "s/<LOWERCASE_TABLE_NAME>/${LOWER_CASE_TABLE_NAME}/" ./docker-compose.yml
