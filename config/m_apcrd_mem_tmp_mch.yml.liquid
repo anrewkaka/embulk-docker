@@ -19,6 +19,7 @@ in:
           ,LGC_DEL_FLG
   where: {{where}}
 
+{% comment %}
 filters:
   - type: eval
     eval_columns:
@@ -43,6 +44,7 @@ filters:
       - DAT_UPD_CLS
       - UPD_TMS
       - LGC_DEL_FLG
+{% endcomment %}
 
 out:
   type: stdout
