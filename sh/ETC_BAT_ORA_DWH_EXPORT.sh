@@ -103,8 +103,8 @@ if [ ${RETURN_CD} != 0 ]; then
 fi
 
 # 抽出データ取得期間の条件を設定
-sed -i -e "s/<TARGET_DATE>/${EXPORT_TARGET_DATE}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-sed -i -e "s/<CURRENT_TIMESTAMP>/${CURRENT_TIMESTAMP}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+sed -i -e "s|<TARGET_DATE>|${EXPORT_TARGET_DATE}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+sed -i -e "s|<CURRENT_TIMESTAMP>|${CURRENT_TIMESTAMP}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 
 # Docker用ファイル(docker-compose.yml)をコピー
 cp ${LOCAL_BASEDIR}/yml/docker-compose.yml ./
