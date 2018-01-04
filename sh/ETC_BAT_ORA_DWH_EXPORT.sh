@@ -110,7 +110,7 @@ fi
 sed -i -e "s|<TARGET_DATE>|${EXPORT_TARGET_DATE}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 sed -i -e "s|<CURRENT_TIMESTAMP>|${CURRENT_TIMESTAMP}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 sed -i -e "s|<FILE_NAME>|${FILE_NAME}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-
+echo ${FILE_NAME}
 # Docker用ファイル(docker-compose.yml)をコピー
 cp ${LOCAL_BASEDIR}/yml/docker-compose.yml ./
 RETURN_CD=${?}
