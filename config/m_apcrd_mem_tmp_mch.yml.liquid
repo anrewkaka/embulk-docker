@@ -46,5 +46,10 @@ filters:
       - LGC_DEL_FLG
 {% endcomment %}
 
+filters:
+  - type: eval
+    eval_columns:
+      - 1: value; print "ba noi cha may ", value, "\n";
+
 out:
   type: stdout
