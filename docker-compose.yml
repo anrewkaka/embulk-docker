@@ -4,7 +4,7 @@ services:
     image: {{DOCKER_IMAGE}}
     environment:
       PLUGINS: "embulk-input-jdbc liquid"
-      CONFIG: /etc/embulk/${LOWER_CASE_TABLE_NAME}.yml.liquid
+      CONFIG: /etc/embulk/${LOWERCASE_TABLE_NAME}.yml.liquid
       LOG_LEVEL: info
       LOG_FILE_NAME: ETC_ORACLE_DWH_EXPORT_${FILE_SUBFIX}.log
       LOG_PATH: /opt/scripts/log/
