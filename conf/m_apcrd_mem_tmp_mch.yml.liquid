@@ -34,3 +34,7 @@ out:
     column_options:
       REG_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
       UPD_DTTM: {format: '%Y-%m-%d %H:%M:%S'}
+filters:
+  - type: eval
+    eval_columns:
+      - UPD_USR_ID: "'Eval is Evil! ' + value"
