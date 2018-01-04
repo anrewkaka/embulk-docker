@@ -21,21 +21,7 @@ in:
 filters:
   - type: eval
     eval_columns:
-      - APCRD_NO:
-      - MEM_ID: "'TEST' + value"
-      - MCH_FLG:
-      - REG_DTTM:
-      - REG_USR_ID:
-      - UPD_DTTM:
-      - UPD_USR_ID:
-      - DAT_UPD_CLS:
-      - UPD_TMS:
-      - LGC_DEL_FLG:
-{% comment %}
-  - type: column
-    add_columns:
-      - {name: XYZ, type: string, default: "test"}
-{% endcomment %}
+      - MEM_ID: "'TEST'"
 out:
   type: file
   path_prefix: /opt/scripts/data/{{output_file_name}}_{{current_timestamp}}
