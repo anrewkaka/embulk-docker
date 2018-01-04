@@ -47,11 +47,18 @@ filters:
 {% endcomment %}
 
 filters:
-  - type: eval
-    eval_columns:
-      - 1: value; print "ba noi cha may ", value, "\n";
-    out_columns:
-      - 1
+  - type: column
+    columns:
+      - {name: APCRD_NO, src: APCRD_NO, type: string}
+      - {name: MEM_ID, src: MEM_ID, type: string}
+      - {name: MCH_FLG, src: MCH_FLG, type: string}
+      - {name: REG_DTTM, src: REG_DTTM, type: string}
+      - {name: REG_USR_ID, src: REG_USR_ID, type: string}
+      - {name: UPD_DTTM, src: UPD_DTTM, type: string}
+      - {name: UPD_USR_ID, src: UPD_USR_ID, type: string}
+      - {name: DAT_UPD_CLS, src: DAT_UPD_CLS, type: string}
+      - {name: UPD_TMS, src: UPD_TMS, type: string}
+      - {name: LGC_DEL_FLG, src: LGC_DEL_FLG, type: string}
 
 out:
   type: stdout
