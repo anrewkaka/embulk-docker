@@ -43,7 +43,14 @@ touch ${ORA_DWH_EXPORT_LOG}
 #
 # 引数設定
 #
-TARGET_DATE=$1
+#  第1引数 TABLE_NAME
+TABLE_NAME=$1
+
+#  第2引数 FILE_NAME
+FILE_NAME=$2
+
+# 第3引数 TARGET_DATE
+TARGET_DATE=$3
 if [ "x$TARGET_DATE" = "x" ]; then
     # 未指定の場合：実行日を対象日とする
     TARGET_DATE=`date +%Y-%m-%d`
@@ -52,6 +59,23 @@ fi
 #
 # 引数チェック
 #
+# TABLE_NAMEの必須チェック
+if [ "x$TABLE_NAME" = "x" ]; then
+    # ログ出力
+    echo "`date '+%T'` テーブル名を入力してください。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    # 異常終了
+    exit 1
+fi
+
+# FILE_NAMEの必須チェック
+if [ "x$FILE_NAME" = "x" ]; then
+    # ログ出力
+    echo "`date '+%T'` ファイル名を入力してください。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    # 異常終了
+    exit 1
+fi
+
+# TARGET_DATEの形式チェック
 if [ $(expr "$TARGET_DATE" : '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$') -eq 0 ]; then
     # ログ出力
     echo "`date '+%T'` 不正な引数：${TARGET_DATE}（正しくは「YYYY-MM-DD」フォーマットの日付です。）" | tee -a ${ORA_DWH_EXPORT_LOG}
