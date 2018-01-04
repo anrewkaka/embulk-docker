@@ -83,6 +83,14 @@ if [ $(expr "$TARGET_DATE" : '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$') -eq 0 ]; then
     exit 1
 fi
 
+# EXPORT_TARGET_DATEの設定
+EXPORT_TARGET_DATE=date -d "${TARGET_DATE}" +%Y-%m-%d
+
+echo ${EXPORT_TARGET_DATE}
+
+exit 1
+
+
 # Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
 cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
 RETURN_CD=${?}
