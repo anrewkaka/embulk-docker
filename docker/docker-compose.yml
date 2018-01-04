@@ -3,7 +3,7 @@ services:
   embulk:
     image: <DOCKER_IMAGE>
     environment:
-      PLUGINS: "embulk-input-jdbc embulk-filter-eval liquid"
+      PLUGINS: "embulk-input-jdbc embulk-filter-eval embulk-filter-column liquid"
       CONFIG: /etc/embulk/m_apcrd_mem_tmp_mch.yml.liquid
       LOG_LEVEL: info
       LOG_FILE_NAME: EMBULK_ORACLE_DWH_EXPORT_<FILE_SUBFIX>.log
