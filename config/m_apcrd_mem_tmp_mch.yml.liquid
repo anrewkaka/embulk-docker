@@ -20,7 +20,8 @@ in:
   where: {{where}}
 filters:
 - type: eval
-  eval_columns:
+{% comment %}
+eval_columns:
   - APCRD_NO:
   - MEM_ID: "'TEST' + value"
   - MCH_FLG:
@@ -31,6 +32,7 @@ filters:
   - DAT_UPD_CLS:
   - UPD_TMS:
   - LGC_DEL_FLG:
+{% endcomment %}
 out:
   type: file
   path_prefix: /opt/scripts/data/{{output_file_name}}_{{current_timestamp}}
