@@ -19,9 +19,12 @@ in:
           ,LGC_DEL_FLG
   where: {{where}}
 filters:
-- type: eval
+  - type: column
+    add_columns:
+      - {name: XYZ, type: string, default: "test"}
 {% comment %}
-eval_columns:
+- type: eval
+  eval_columns:
   - APCRD_NO:
   - MEM_ID: "'TEST' + value"
   - MCH_FLG:
