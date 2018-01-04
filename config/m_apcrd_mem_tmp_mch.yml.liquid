@@ -19,18 +19,12 @@ in:
           ,LGC_DEL_FLG
   where: {{where}}
 
-{% comment %}
 filters:
   - type: eval
     eval_columns:
-      - REG_DTTM: value
-      - UPD_DTTM: value
-      - UPD_TMS: 5
+      - APCRD_NO: "'X' + value + 'Y'"
     out_columns:
-      - REG_DTTM
-      - UPD_DTTM
-      - UPD_TMS
-{% endcomment %}
+      - APCRD_NO
 
 out:
   type: stdout
