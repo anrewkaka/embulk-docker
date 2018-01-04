@@ -85,12 +85,6 @@ fi
 
 # EXPORT_TARGET_DATEの設定
 EXPORT_TARGET_DATE=`date --date="${TARGET_DATE} -1 day" +%Y-%m-%d`
-#`date -d "${TARGET_DATE}" +%Y-%m-%d`
-
-echo ${EXPORT_TARGET_DATE}
-
-exit 1
-
 
 # Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
 cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
@@ -109,5 +103,5 @@ if [ ${RETURN_CD} != 0 ]; then
 fi
 
 # 抽出データ取得期間の条件を設定
-sed -i -e "s/<TARGET_DATE>/${TARGET_DATE}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+sed -i -e "s/<TARGET_DATE>/${EXPORT_TARGET_DATE}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 sed -i -e "s/<CURRENT_TIMESTAMP>/${CURRENT_TIMESTAMP}/" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
