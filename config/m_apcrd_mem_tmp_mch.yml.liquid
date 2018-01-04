@@ -23,6 +23,7 @@ filters:
   - type: column
     default_timestamp_format: "%Y-%m-%d %H:%M:%S"
     default_timezone: "Asia/Tokyo"
+{% comment %}
   - type: eval
     eval_columns:
       - REG_DTTM: value
@@ -32,6 +33,7 @@ filters:
       - REG_DTTM
       - UPD_DTTM
       - UPD_TMS
+{% endcomment %}
 
 out:
   type: file
