@@ -90,7 +90,7 @@ EXPORT_TARGET_DATE=`date --date="${TARGET_DATE} -1 day" +%Y-%m-%d`
 cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
 RETURN_CD=${?}
 if [ ${RETURN_CD} != 0 ]; then
-    echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
+    echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" | tee -a ${ORA_DWH_EXPORT_LOG}
     exit -1
 fi
 
@@ -98,7 +98,7 @@ fi
 cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
 RETURN_CD=${?}
 if [ ${RETURN_CD} != 0 ]; then
-    echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
+    echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" | tee -a ${ORA_DWH_EXPORT_LOG}
     exit -1
 fi
 
@@ -110,7 +110,7 @@ sed -i -e "s/<CURRENT_TIMESTAMP>/${CURRENT_TIMESTAMP}/" ${LOCAL_BASEDIR}/yml/inp
 cp ${LOCAL_BASEDIR}/yml/docker-compose.yml ./
 RETURN_CD=${?}
 if [ ${RETURN_CD} != 0 ]; then
-    echo "`date '+%T'` Docker用ファイルをコピーできませんでした。" >> ${GCS_SEND_LOG}
+    echo "`date '+%T'` Docker用ファイルをコピーできませんでした。" | tee -a ${ORA_DWH_EXPORT_LOG}
     exit -1
 fi
 
