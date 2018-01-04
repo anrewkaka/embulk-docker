@@ -33,7 +33,7 @@ filters:
   - LGC_DEL_FLG:
 out:
   type: file
-  path_prefix: /opt/scripts/data/Snd_HB_M_APCRD_MEM_TMP_MCH_{{current_timestamp}}
+  path_prefix: /opt/scripts/data/{{output_file_name}}_{{current_timestamp}}
   sequence_format: "."
   file_ext: csv
   formatter:
