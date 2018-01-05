@@ -34,7 +34,7 @@ filters:
       - name: MEM_ID
         proc: |             
           ->(id) do
-            "^000000000"
+            id.gsub("^", "")
           end
 
 out:
