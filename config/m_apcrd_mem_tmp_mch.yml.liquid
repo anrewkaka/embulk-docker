@@ -55,4 +55,14 @@ filters:
           end
 
 out:
-  type: stdout
+  type: file
+  path_prefix: /opt/scripts/data/{{output_file_name}}_{{current_timestamp}}
+  sequence_format: "."
+  file_ext: csv
+  formatter:
+    type: csv
+    delimiter: "|"
+    newline: LF
+    charset: UTF-8
+    quote_policy: NONE
+    header_line: false
