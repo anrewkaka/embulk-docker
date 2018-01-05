@@ -57,8 +57,10 @@ filters:
 out:
   type: file
   path_prefix: /opt/scripts/data/{{output_file_name}}_{{current_timestamp}}
-  sequence_format: "."
-  file_ext: csv
+  sequence_format: ""
+  file_ext: .csv.zip
+  encoders:
+    - type: gzip
   formatter:
     type: csv
     delimiter: "|"
