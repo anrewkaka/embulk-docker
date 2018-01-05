@@ -34,7 +34,7 @@ filters:
       - name: MEM_ID
         proc: |             
           ->(id) do
-            id.gsub("^", "")
+            id.gsub("[|\r\n]", "")
           end
 
 out:
