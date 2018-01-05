@@ -140,9 +140,18 @@ if [ ${RETURN_CD} != 0 ]; then
     exit 1
 fi
 
-# 出力したファイルを移動
 OUTPUT_FILE_NAME=${OUTPUT_DIR}/${FILE_NAME}_${CURRENT_TIMESTAMP}
+
+# 出力したファイルを移動
 mv -f ${LOCAL_BASEDIR}/work/${OUTPUT_FILE_NAME}.csv.zip ${OUTPUT_DIR}/${OUTPUT_FILE_NAME}.csv.zip
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    # ログ出力
+    echo "`date '+%T'` ファイル移動に。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    # 異常終了
+    exit 1
+fi
+
 # コントロールファイルを作成
 touch ${OUTPUT_FILE_NAME}.ctl
 
