@@ -2,6 +2,20 @@
 
 Embulkを利用して、データベースからDWH送る連携ファイルを抽出する
 
+## 概要
+
+Trích xuất các record của table được chỉ định mà có 更新日時 là từ sau 0時 của ngày trước ngày đối tượng đến trước 0時 của ngày đối tượng.
+
+※ Ngày đối tượng thì sẽ được chỉ định bằng tham số, trường hợp chưa được chỉ định thì ngày đối tượng sẽ là ngày thực thi
+
+出力するファイルの仕様
+- ファイルの文字コード：UTF-8
+- 改行コード：LF
+- 区切文字："|"（半角パイプ） 、囲み文字なし（※データ内に半角パイプ、改行コード「CR」「LF」が存在した場合は削除）
+- 圧縮前のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv（YYYYMMDDHHMMSSは処理開始日時。csv,zip,ctlで同じ）
+- 圧縮後のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv.zip
+- コントロールファイル（空ファイル）：[ファイル名]_YYYYMMDDHHMMSS.ctl
+
 ## デプロイ
 
 ### Build Docker Image
@@ -42,7 +56,7 @@ Copy file template của docker-compose vào directory mà đã định nghĩa t
 cp ./docker/docker-compose.yml /nas/etl01/batch/ETC/ETC_BAT_EMBULK/yml/
 ```
 
-### シェルの実行
+### シェル実行
 
 #### 引数
 
@@ -52,7 +66,7 @@ cp ./docker/docker-compose.yml /nas/etl01/batch/ETC/ETC_BAT_EMBULK/yml/
 |第2引数|○|Tên file mà sẽ output|
 |第3引数||Ngày đối tượng trích xuất(format: YYYY-MM-DD) ※ Trường hợp ko setting thì sẽ cho ngày 実行 là ngày đối tượng trích xuất|
 
-#### 実行
+#### シェル実行
 
 - 対象日が設定されるでシェルを実行
 
