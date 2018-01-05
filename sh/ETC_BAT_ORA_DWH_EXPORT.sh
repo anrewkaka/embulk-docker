@@ -140,11 +140,8 @@ if [ ${RETURN_CD} != 0 ]; then
     exit 1
 fi
 
-# zipファイルを作成
-OUTPUT_FILE_NAME=${OUTPUT_DIR}/${FILE_NAME}_${CURRENT_TIMESTAMP}
-gzip ${OUTPUT_FILE_NAME}.csv -q -S .zip
-
 # コントロールファイルを作成
+OUTPUT_FILE_NAME=${OUTPUT_DIR}/${FILE_NAME}_${CURRENT_TIMESTAMP}
 touch ${OUTPUT_FILE_NAME}.ctl
 
 # 正常終了
