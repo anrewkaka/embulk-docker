@@ -43,8 +43,19 @@ Copy file template của Embulk設定 vào directory mà đã định nghĩa t�
 例）
 
 ```bash
-cp ./config/_config.yml /nas/etl01/batch/ETC/ETC_BAT_EMBULK/yml/input/config
+cp ./config/_config.yml.liquid /nas/etl01/batch/ETC/ETC_BAT_EMBULK/yml/input/config
 ```
+
+#### file Embulk設定
+
+Tạo file Embulk設定 có tên file là tên table dưới dạng lowercase và bố trí tại folder `yml/input`
+
+例）
+```bash
+/nas/etl01/batch/ETC/ETC_BAT_EMBULK/yml/input/m_apcrd_mem_tmp_mch.yml.liquid
+```
+
+参考: [m_apcrd_mem_tmp_mch.yml.liquid](config/m_apcrd_mem_tmp_mch.yml.liquid)
 
 #### Embulk実行用のdocker-compose
 
