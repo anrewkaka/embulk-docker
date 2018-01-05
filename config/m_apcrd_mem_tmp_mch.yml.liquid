@@ -19,46 +19,15 @@ in:
           ,LGC_DEL_FLG
   where: {{where}}
 
-{% comment %}
 filters:
-  - type: eval
-    eval_columns:
-      - APCRD_NO: value; print "ba noi cha may ", value, "\n";
-      - MEM_ID: value
-      - MCH_FLG: value
-      - REG_DTTM: value
-      - REG_USR_ID: value
-      - UPD_DTTM: value
-      - UPD_USR_ID: value
-      - DAT_UPD_CLS: value
-      - UPD_TMS: value
-      - LGC_DEL_FLG: value
-    out_columns:
-      - APCRD_NO
-      - MEM_ID
-      - MCH_FLG
-      - REG_DTTM
-      - REG_USR_ID
-      - UPD_DTTM
-      - UPD_USR_ID
-      - DAT_UPD_CLS
-      - UPD_TMS
-      - LGC_DEL_FLG
-
-filters:
-  - type: column
-    columns:
-      - {name: APCRD_NO, src: APCRD_NO, type: string}
-      - {name: MEM_ID, src: MEM_ID, type: string}
-      - {name: MCH_FLG, src: MCH_FLG, type: string}
-      - {name: REG_DTTM, src: REG_DTTM, type: string}
-      - {name: REG_USR_ID, src: REG_USR_ID, type: string}
-      - {name: UPD_DTTM, src: UPD_DTTM, type: string}
-      - {name: UPD_USR_ID, src: UPD_USR_ID, type: string}
-      - {name: DAT_UPD_CLS, src: DAT_UPD_CLS, type: string}
-      - {name: UPD_TMS, src: UPD_TMS, type: string}
-      - {name: LGC_DEL_FLG, src: LGC_DEL_FLG, type: string}
-{% endcomment %}
+  - type: ruby_proc
+    rows:
+      - proc: |
+        ->(record) do
+          [record.tap { |r| 
+            r["APCRD_NO"] = "TEST"
+          }]
+        end
 
 out:
   type: stdout
