@@ -19,7 +19,14 @@ in:
           ,LGC_DEL_FLG
   where: {{where}}
 
-filters:                
+filters:
+  - type: typecast
+    default_timestamp_format: "%Y-%m-%d %H:%M:%S"
+    default_timezone: "Asia/Tokyo"
+    columns:
+      - {name: REG_DTTM, type: string}
+      - {name: UPD_DTTM, type: string}
+
   - type: ruby_proc
     requires:
       - cgi
