@@ -147,13 +147,20 @@ mv -f ${LOCAL_BASEDIR}/work/${OUTPUT_FILE_NAME}.csv.zip ${OUTPUT_DIR}/${OUTPUT_F
 RETURN_CD=${?}
 if [ ${RETURN_CD} != 0 ]; then
     # ログ出力
-    echo "`date '+%T'` ファイル移動に。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    echo "`date '+%T'` ファイル移動に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
     # 異常終了
     exit 1
 fi
 
 # コントロールファイルを作成
 touch ${OUTPUT_FILE_NAME}.ctl
+RETURN_CD=${?}
+if [ ${RETURN_CD} != 0 ]; then
+    # ログ出力
+    echo "`date '+%T'` コントロールファイル作成に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    # 異常終了
+    exit 1
+fi
 
 # 正常終了
 exit 0
