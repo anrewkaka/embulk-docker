@@ -140,25 +140,12 @@ if [ ${RETURN_CD} != 0 ]; then
     exit 1
 fi
 
-# Embulk設定ファイルを削除
-#rm ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-#RETURN_CD=${?}
-#if [ ${RETURN_CD} != 0 ]; then
-#    # ログ出力
-#    echo "`date '+%T'` Embulk設定ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
-#    # 異常終了
-#    exit 1
-#fi
+# zipファイルを作成
+OUTPUT_FILE_NAME=${OUTPUT_DIR}/${FILE_NAME}_${CURRENT_TIMESTAMP}
+gzip ${OUTPUT_FILE_NAME}.csv -q -S .zip
 
-# Docker用ファイルを削除
-#rm ./docker-compose.yml
-#RETURN_CD=${?}
-#if [ ${RETURN_CD} != 0 ]; then
-#    # ログ出力
-#    echo "`date '+%T'` Docker用ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
-#    # 異常終了
-#    exit 1
-#fi
+# コントロールファイルを作成
+touch ${OUTPUT_FILE_NAME}.ctl
 
 # 正常終了
 exit 0
