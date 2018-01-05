@@ -11,4 +11,4 @@ services:
     volumes:
       - <LOCAL_BASEDIR>/log:/opt/scripts/log
       - <LOCAL_BASEDIR>/yml/input:/etc/embulk
-      - <LOCAL_BASEDIR>:/opt/scripts/data
+      - <LOCAL_BASEDIR>/work:/opt/scripts/data
