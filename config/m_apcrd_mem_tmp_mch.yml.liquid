@@ -19,13 +19,13 @@ in:
           ,LGC_DEL_FLG
   where: {{where}}
 
-filters:
+filters:                
   - type: ruby_proc
     rows:
-      - proc: |
-        ->(record) do
-          [record.tap { |r|  r["APCRD_NO"] = "TEST" }]
-        end
+      - proc: |             
+          ->(record) do
+            [record.tap { |r| r["MEM_ID"] = "^00000000" }]
+          end
 
 out:
   type: stdout
