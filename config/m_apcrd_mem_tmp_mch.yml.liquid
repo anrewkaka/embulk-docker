@@ -38,8 +38,20 @@ filters:
       - name: MEM_ID
         proc: |             
           ->(memId) do
-            memId.gsub("[\|\r\n]", "")
+            memId.gsub("[|]", "")
             memId
+          end
+      - name: UPD_USR_ID
+        proc: |             
+          ->(updUsrId) do
+            updUsrId.gsub("[\|\r\n]", "")
+            updUsrId
+          end
+       - name: REG_USR_ID
+        proc: |             
+          ->(regUsrId) do
+            regUsrId.gsub("[\|\r\n]", "")
+            regUsrId
           end
 
 out:
