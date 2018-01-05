@@ -13,12 +13,12 @@
 ################################################################################
 #
 # 【概要】
-# Oracleからデータを取得し、Google Cloud Strageへデータ連携する。
+# Oracleからデータを取得し、DWHへ送る連携ファイルを抽出する。
 #
 # 【引数】
-#  第1引数 TABLE_NAME: テーブル名
-#  第2引数 FILE_NAME: ファイル名
-#  第3引数 TARGET_DATE: 対象日(フォーマット：YYYY-MM-DD)
+#  第1引数【必須】 TABLE_NAME: テーブル名
+#  第2引数【必須】 FILE_NAME: ファイル名
+#  第3引数【任意】 TARGET_DATE: 対象日(フォーマット：YYYY-MM-DD)
 # 【返却値】
 #    0 : 正常終了
 #    1 : 異常終了
@@ -34,6 +34,7 @@
 # 現在日時
 #
 CURRENT_TIMESTAMP=`date +%Y%m%d%H%M%S`
+
 #
 # ログ出力先ファイルパス
 #
@@ -43,6 +44,7 @@ touch ${ORA_DWH_EXPORT_LOG}
 #
 # 引数設定
 #
+
 #  第1引数 TABLE_NAME
 TABLE_NAME=$1
 
@@ -83,18 +85,17 @@ if [ $(expr "$TARGET_DATE" : '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$') -eq 0 ]; then
     exit 1
 fi
 
-# EXPORT_TARGET_DATEの設定
-EXPORT_TARGET_DATE=`date --date="${TARGET_DATE} -1 day" +%Y-%m-%d`
-
-# Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
-cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
+date --date="${TARGET_DATE}
 RETURN_CD=${?}
 if [ ${RETURN_CD} != 0 ]; then
     # ログ出力
-    echo "`date '+%T'` Embulk設定ファイル用共通項目設定ファイルをコピーできませんでした。" | tee -a ${ORA_DWH_EXPORT_LOG}
+    echo "`date '+%T'` 対象日を正しく値で入力してください。" | tee -a ${ORA_DWH_EXPORT_LOG}
     # 異常終了
     exit 1
 fi
+
+# EXPORT_TARGET_DATEの設定
+EXPORT_TARGET_DATE=`date --date="${TARGET_DATE} -1 day" +%Y-%m-%d`
 
 # Embulk設定ファイル用共通項目設定ファイル(_config.yml.liquid)をコピー
 cp ${LOCAL_BASEDIR}/yml/input/config/_config.yml.liquid ${LOCAL_BASEDIR}/yml/input/
