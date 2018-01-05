@@ -3,7 +3,7 @@ services:
   embulk:
     image: <DOCKER_IMAGE>
     environment:
-      PLUGINS: "embulk-input-oracle embulk-filter-eval liquid"
+      PLUGINS: "embulk-input-oracle embulk-filter-ruby_proc liquid"
       CONFIG: /etc/embulk/<LOWERCASE_TABLE_NAME>.yml.liquid
       LOG_LEVEL: info
       LOG_FILE_NAME: EMBULK_ORACLE_DWH_EXPORT_<FILE_SUBFIX>.log
