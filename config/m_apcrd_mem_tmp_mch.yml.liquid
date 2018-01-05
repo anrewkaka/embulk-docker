@@ -24,9 +24,7 @@ filters:
     rows:
       - proc: |
         ->(record) do
-          [record.tap { |r| 
-            r["APCRD_NO"] = "TEST"
-          }]
+          [record.tap { |r|  r["APCRD_NO"] = "TEST" }]
         end
 
 out:
