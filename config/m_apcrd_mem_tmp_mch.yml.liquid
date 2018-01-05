@@ -28,13 +28,18 @@ filters:
       - {name: UPD_DTTM, type: string}
 
   - type: ruby_proc
-    requires:
-      - cgi
     columns:
+      - name: APCRD_NO
+        proc: |             
+          ->(apcrdNo) do
+            apcrdNo.gsub("[|\r\n]", "")
+            puts apcrdNo
+          end
       - name: MEM_ID
         proc: |             
-          ->(id) do
-            id.gsub("[|\r\n]", "")
+          ->(memId) do
+            memId.gsub("[|\r\n]", "")
+            puts memId
           end
 
 out:
