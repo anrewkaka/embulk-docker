@@ -85,7 +85,7 @@ if [ $(expr "$TARGET_DATE" : '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}$') -eq 0 ]; then
     exit 1
 fi
 
-date --date="${TARGET_DATE}
+date --date="${TARGET_DATE}"
 RETURN_CD=${?}
 if [ ${RETURN_CD} != 0 ]; then
     # ログ出力
