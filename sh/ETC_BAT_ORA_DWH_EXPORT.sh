@@ -140,7 +140,7 @@ if [ ${RETURN_CD} != 0 ]; then
     exit 1
 fi
 
-OUTPUT_FILE_NAME=${OUTPUT_DIR}/${FILE_NAME}_${CURRENT_TIMESTAMP}
+OUTPUT_FILE_NAME=${FILE_NAME}_${CURRENT_TIMESTAMP}
 
 # 出力したファイルを移動
 mv -f ${LOCAL_BASEDIR}/work/${OUTPUT_FILE_NAME}.csv.zip ${OUTPUT_DIR}/${OUTPUT_FILE_NAME}.csv.zip
@@ -153,7 +153,7 @@ if [ ${RETURN_CD} != 0 ]; then
 fi
 
 # コントロールファイルを作成
-touch ${OUTPUT_FILE_NAME}.ctl
+touch ${OUTPUT_DIR}/${OUTPUT_FILE_NAME}.ctl
 RETURN_CD=${?}
 if [ ${RETURN_CD} != 0 ]; then
     # ログ出力
