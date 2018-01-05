@@ -21,10 +21,11 @@ in:
 
 filters:                
   - type: ruby_proc
-    rows:
-      - proc: |             
-          ->(record) do
-            [record.tap { |r| r["MEM_ID"] = "^00000000" }]
+    columns:
+      - name: MEM_ID
+        proc: |             
+          ->(MEM_ID) do
+            "^000000000"
           end
 
 out:
