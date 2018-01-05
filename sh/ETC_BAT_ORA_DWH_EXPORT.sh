@@ -107,9 +107,9 @@ if [ ${RETURN_CD} != 0 ]; then
 fi
 
 # 抽出データ取得期間の条件を設定
-sed -i -e "s|<TARGET_DATE>|${EXPORT_TARGET_DATE}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-sed -i -e "s|<CURRENT_TIMESTAMP>|${CURRENT_TIMESTAMP}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
-sed -i -e "s|<FILE_NAME>|${FILE_NAME}|" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+sed -i -e "s|<TARGET_DATE>|${EXPORT_TARGET_DATE}|g" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+sed -i -e "s|<CURRENT_TIMESTAMP>|${CURRENT_TIMESTAMP}|g" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
+sed -i -e "s|<FILE_NAME>|${FILE_NAME}|g" ${LOCAL_BASEDIR}/yml/input/_config.yml.liquid
 
 # Docker用ファイル(docker-compose.yml)をコピー
 cp ${LOCAL_BASEDIR}/yml/docker-compose.yml ./
@@ -124,11 +124,11 @@ fi
 LOWER_CASE_TABLE_NAME=`echo ${TABLE_NAME} | tr [:upper:] [:lower:]`
 
 # Docker用ファイルの共通項目を設定
-sed -i -e "s|<DOCKER_IMAGE>|${DOCKER_IMAGE}|" ./docker-compose.yml
-sed -i -e "s|<LOWERCASE_TABLE_NAME>|${LOWER_CASE_TABLE_NAME}|" ./docker-compose.yml
-sed -i -e "s|<FILE_SUBFIX>|${CURRENT_TIMESTAMP}|" ./docker-compose.yml
-sed -i -e "s|<LOCAL_BASEDIR>|${LOCAL_BASEDIR}|" ./docker-compose.yml
-sed -i -e "s|<OUTPUT_DIR>|${OUTPUT_DIR}|" ./docker-compose.yml
+sed -i -e "s|<DOCKER_IMAGE>|${DOCKER_IMAGE}|g" ./docker-compose.yml
+sed -i -e "s|<LOWERCASE_TABLE_NAME>|${LOWER_CASE_TABLE_NAME}|g" ./docker-compose.yml
+sed -i -e "s|<FILE_SUBFIX>|${CURRENT_TIMESTAMP}|g" ./docker-compose.yml
+sed -i -e "s|<LOCAL_BASEDIR>|${LOCAL_BASEDIR}|g" ./docker-compose.yml
+sed -i -e "s|<OUTPUT_DIR>|${OUTPUT_DIR}|g" ./docker-compose.yml
 
 # Embulkを実行し、Oracleからデータを抽出
 docker-compose up
@@ -151,14 +151,14 @@ fi
 #fi
 
 # Docker用ファイルを削除
-rm ./docker-compose.yml
-RETURN_CD=${?}
-if [ ${RETURN_CD} != 0 ]; then
-    # ログ出力
-    echo "`date '+%T'` Docker用ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
-    # 異常終了
-    exit 1
-fi
+#rm ./docker-compose.yml
+#RETURN_CD=${?}
+#if [ ${RETURN_CD} != 0 ]; then
+#    # ログ出力
+#    echo "`date '+%T'` Docker用ファイル削除に失敗しました。" | tee -a ${ORA_DWH_EXPORT_LOG}
+#    # 異常終了
+#    exit 1
+#fi
 
 # 正常終了
 exit 0
