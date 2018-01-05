@@ -32,13 +32,13 @@ filters:
       - name: APCRD_NO
         proc: |             
           ->(apcrdNo) do
-            apcrdNo.gsub("[|\r\n]", "")
+            apcrdNo.gsub("[\|\r\n]", "")
             apcrdNo
           end
       - name: MEM_ID
         proc: |             
           ->(memId) do
-            memId.gsub("[|\r\n]", "")
+            memId.gsub("[\|\r\n]", "")
             memId
           end
 
