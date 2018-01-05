@@ -129,7 +129,6 @@ sed -i -e "s|<DOCKER_IMAGE>|${DOCKER_IMAGE}|g" ./docker-compose.yml
 sed -i -e "s|<LOWERCASE_TABLE_NAME>|${LOWER_CASE_TABLE_NAME}|g" ./docker-compose.yml
 sed -i -e "s|<FILE_SUBFIX>|${CURRENT_TIMESTAMP}|g" ./docker-compose.yml
 sed -i -e "s|<LOCAL_BASEDIR>|${LOCAL_BASEDIR}|g" ./docker-compose.yml
-sed -i -e "s|<OUTPUT_DIR>|${OUTPUT_DIR}|g" ./docker-compose.yml
 
 # Embulkを実行し、Oracleからデータを抽出
 docker-compose up
@@ -141,8 +140,10 @@ if [ ${RETURN_CD} != 0 ]; then
     exit 1
 fi
 
-# コントロールファイルを作成
+# 出力したファイルを移動
 OUTPUT_FILE_NAME=${OUTPUT_DIR}/${FILE_NAME}_${CURRENT_TIMESTAMP}
+mv -f ${LOCAL_BASEDIR}/work/${OUTPUT_FILE_NAME}.csv.zip ${OUTPUT_DIR}/${OUTPUT_FILE_NAME}.csv.zip
+# コントロールファイルを作成
 touch ${OUTPUT_FILE_NAME}.ctl
 
 # 正常終了
