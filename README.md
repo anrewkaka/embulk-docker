@@ -12,7 +12,7 @@ Embulkを利用して、データベースからDWHへ送る連携ファイル�
 - ファイルの文字コード：UTF-8
 - 改行コード：LF
 - 区切文字："|"（半角パイプ） 、囲み文字なし（※データ内に半角パイプ、改行コード「CR」「LF」が存在した場合は削除）
-- 圧縮前のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv（YYYYMMDDHHMMSSは処理開始日時(csv、zip、ctlでは同じ)）
+- 圧縮前のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv（YYYYMMDDHHMMSSは処理開始日時（csv、zip、ctlでは同じ））
 - 圧縮後のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv.zip
 - コントロールファイル（空ファイル）：[ファイル名]_YYYYMMDDHHMMSS.ctl
 
