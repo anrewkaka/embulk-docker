@@ -1,44 +1,44 @@
 # OracleからDWHへ送る連携ファイル抽出
 
-Embulkを利用して、データベースからDWH送る連携ファイルを抽出する
+Embulkを利用して、データベースからDWHへ送る連携ファイルを抽出する
 
 ## 概要
 
-Trích xuất các record của table được chỉ định mà có 更新日時 là từ sau 0時 của ngày trước ngày đối tượng đến trước 0時 của ngày đối tượng.
+更新日時が「対象日の前日0時以降から対象日の0時前まで」の指定テーブルのレコードを抽出する。
 
-※ Ngày đối tượng thì sẽ được chỉ định bằng tham số, trường hợp chưa được chỉ định thì ngày đối tượng sẽ là ngày thực thi
+※ 対象日は引数で指定される。指定されていない場合に対象日が実行日である。
 
-出力するファイルの仕様
+出力ファイルの仕様
 - ファイルの文字コード：UTF-8
 - 改行コード：LF
 - 区切文字："|"（半角パイプ） 、囲み文字なし（※データ内に半角パイプ、改行コード「CR」「LF」が存在した場合は削除）
-- 圧縮前のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv（YYYYMMDDHHMMSSは処理開始日時。csv,zip,ctlで同じ）
+- 圧縮前のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv（YYYYMMDDHHMMSSは処理開始日時(csv、zip、ctlでは同じ)）
 - 圧縮後のファイル名：[ファイル名]_YYYYMMDDHHMMSS.csv.zip
 - コントロールファイル（空ファイル）：[ファイル名]_YYYYMMDDHHMMSS.ctl
 
 ## デプロイ
 
-### Build Docker Image
+### Dockerイメージのビルド
 
 ```bash
 docker build -t [docker_image_name:tag] .
 ```
 
-### Thay đổi biến môi trường
+### 環境変数の変更
 
-Thực hiện thay đổi giá trị của các biến môi trường bên dưới tại mà đang được định nghĩa tại `ora_dwh.env`
+`ora_dwh.env`で定義されている以下の環境変数の値を変更する。
 
 |変数名|説明|
 |:-----|:-----|
-|LOCAL_BASEDIR|Nơi chứa các file input/output dùng cho việc thực thi shell|
-|OUTPUT_DIR|Nơi chứa file DWHへ送る連携ファイル|
-|DOCKER_IMAGE|Tên của DockerImage|
+|LOCAL_BASEDIR|シェル実行用の入出力ファイルを含む箇所|
+|OUTPUT_DIR|DWHへ送る連携ファイルを含む箇所|
+|DOCKER_IMAGE|Dockerイメージの名前|
 
-### Bố trí file setting
+### 設定ファイルの配置
 
-#### file template của Embulk設定
+#### Embulk設定用のテンプレートファイル
 
-Copy file template của Embulk設定 vào directory mà đã định nghĩa tại `LOCAL_BASEDIR` của file `ora_dwh.env`
+Embulk設定用のテンプレートファイルを、`ora_dwh.env`ファイルの`LOCAL_BASEDIR`で定義されたディレクトリにコピーする。
 
 例）
 
@@ -46,9 +46,9 @@ Copy file template của Embulk設定 vào directory mà đã định nghĩa t�
 cp ./config/_config.yml.liquid /nas/etl01/batch/ETC/ETC_BAT_EMBULK/yml/input/config
 ```
 
-#### file Embulk設定
+#### Embulk設定ファイル
 
-Tạo file Embulk設定 có tên file là tên table dưới dạng lowercase và bố trí tại folder `yml/input`
+lowercase型のあるテーブル名をファイル名としてEmbulk設定ファイルを作成して、`yml/input`フォルダに配置する。
 
 例）
 ```bash
@@ -59,7 +59,7 @@ Tạo file Embulk設定 có tên file là tên table dưới dạng lowercase v�
 
 #### Embulk実行用のdocker-compose
 
-Copy file template của docker-compose vào directory mà đã định nghĩa tại `LOCAL_BASEDIR` của file `ora_dwh.env`
+`ora_dwh.env`ファイルの`LOCAL_BASEDIR`で定義されたディレクトリに、docker-composeのテンプレートファイルをコピーする。
 
 例）
 
@@ -73,19 +73,19 @@ cp ./docker/docker-compose.yml /nas/etl01/batch/ETC/ETC_BAT_EMBULK/yml/
 
 |引数|必須|説明|
 |:-----|:-----|:-----|
-|第1引数|○|Tên table của đối tượng trích xuất|
-|第2引数|○|Tên file mà sẽ output|
-|第3引数||Ngày đối tượng trích xuất(format: YYYY-MM-DD) ※ Trường hợp ko setting thì sẽ cho ngày 実行 là ngày đối tượng trích xuất|
+|第1引数|○|抽出対象のテーブル名|
+|第2引数|○|出力ファイル名|
+|第3引数||抽出対象日(フォーマット: YYYY-MM-DD) ※ 設定されない場合に実行日を抽出対象日とする|
 
 #### シェル実行
 
-- 対象日が設定されるでシェルを実行
+- 対象日を設定してシェルを実行する。
 
 ```bash
 sh ETC_BAT_ORA_DWH_EXPORT.sh TEST_TABLE TEST_FILE_NAME 2018-01-01
 ```
 
-- 対象日が設定されないでシェルを実行
+- 対象日を設定せずにシェルを実行する。
 
 ```bash
 sh ETC_BAT_ORA_DWH_EXPORT.sh TEST_TABLE TEST_FILE_NAME
