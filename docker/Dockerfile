@@ -5,6 +5,7 @@ RUN apk add --update curl && \
     chmod +x /usr/local/bin/embulk && \
     mkdir /etc/embulk
 VOLUME /etc/embulk
+RUN embulk gem install embulk-input-oracle embulk-filter-typecast embulk-filter-ruby_proc liquid
 RUN curl --create-dirs -o /usr/lib/jdbc/ojdbc7_g-12.1.0.2.jar -L "https://storage.googleapis.com/honto-dev-server-resources/lib/ojdbc7_g-12.1.0.2.jar"
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
